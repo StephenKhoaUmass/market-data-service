@@ -2,19 +2,22 @@ Market Data Service: A backend service that fetches real-time stock prices, stor
 
 1. Features:
 
-API Endpoint: /prices/latest?symbol=AAPL&provider=yfinance
-Providers: Supports real-time data from yfinance
-Database: Stores raw and processed data in PostgreSQL
-Cache: Uses Redis for response caching
-Stream Processing: Publishes to Kafka and consumes to compute moving averages
-CI/CD: Automated testing via GitHub Actions
-Testing: Postman collection included with test scripts
+- API Endpoint: /prices/latest?symbol=AAPL&provider=yfinance
+- Providers: Supports real-time data from yfinance
+- Database: Stores raw and processed data in PostgreSQL
+- Cache: Uses Redis for response caching
+- Stream Processing: Publishes to Kafka and consumes to compute moving averages
+- CI/CD: Automated testing via GitHub Actions
+- Testing: Postman collection included with test scripts
 
 2. Architecture Overview:
 
 User --> FastAPI --> PostgreSQL
+
                   |--> Redis (cache)
+                  
                   |--> Kafka (produces "price-events")
+                  
 Kafka --> Consumer --> Moving Average --> PostgreSQL
 
 - FastAPI: Serves the core API
@@ -25,11 +28,14 @@ Kafka --> Consumer --> Moving Average --> PostgreSQL
 3. Setup Instructions:
 
 3.1. Clone the repo: git clone https://github.com/YOUR_USERNAME/market-data-service.git
+
 cd market-data-service
 
 3.2. Set up virtual environment: 
 python3 -m venv marketdata
+
 source marketdata/bin/activate
+
 pip install -r requirements.txt
 
 3.3. Start the stack with Docker: docker-compose up -d
@@ -46,27 +52,28 @@ python3 app/core/kafka_consumer.py
 GET /prices/latest: Fetches the latest price for a given stock symbol.
 
 Params:
-symbol (e.g. AAPL)
-provider: yfinance (default)
+- symbol (e.g. AAPL)
+- provider: yfinance (default)
 
 Example: GET http://localhost:8000/prices/latest?symbol=AAPL&provider=yfinance
+
 Response: {
   "symbol": "AAPL",
   "price": 196.58,
   "timestamp": "2025-06-19T00:01:09.688642+00:00"
 }
 
-5. Testing
+5. Testing:
 
 ✅ Postman Collection: 
 
-Included in /docs/market-data-service.postman_collection.json
-Includes test scripts:
-- Status code = 200
-- price is a number
+- Included in /docs/market-data-service.postman_collection.json
+- Includes test scripts:
+  - Status code = 200
+  - price is a number
 
 ✅ CI/CD via GitHub Actions:
 
-Located in .github/workflows/ci.yml
-Runs pytest on push to main
-Launches PostgreSQL and Redis as services in CI
+- Located in .github/workflows/ci.yml
+- Runs pytest on push to main
+- Launches PostgreSQL and Redis as services in CI
