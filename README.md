@@ -13,8 +13,11 @@ Market Data Service: A backend service that fetches real-time stock prices, stor
 2. Architecture Overview:
 
 User --> FastAPI --> PostgreSQL
+
                   |--> Redis (cache)
+                  
                   |--> Kafka (produces "price-events")
+                  
 Kafka   -->   Consumer --> Moving Average --> PostgreSQL
 
 - FastAPI: Serves the core API
