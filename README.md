@@ -13,12 +13,9 @@ Market Data Service: A backend service that fetches real-time stock prices, stor
 2. Architecture Overview:
 
 User --> FastAPI --> PostgreSQL
-
                   |--> Redis (cache)
-                  
                   |--> Kafka (produces "price-events")
-                  
-Kafka --> Consumer --> Moving Average --> PostgreSQL
+Kafka   -->   Consumer --> Moving Average --> PostgreSQL
 
 - FastAPI: Serves the core API
 - PostgreSQL: Stores raw market data + price points + symbol averages
@@ -47,7 +44,9 @@ pip install -r requirements.txt
 3.6 Open another terminal, activate the virtual environment again and run the Kafka Consumer:
 python3 app/core/kafka_consumer.py
 
-4. API Documentation: 
+4. Link to video recording of the project: https://drive.google.com/file/d/17ZS61rFsG7BVnmIkzYTLTHOsfr9mWaZX/view?usp=sharing
+
+5. API Documentation: 
 
 GET /prices/latest: Fetches the latest price for a given stock symbol.
 
@@ -63,7 +62,7 @@ Response: {
   "timestamp": "2025-06-19T00:01:09.688642+00:00"
 }
 
-5. Testing:
+6. Testing:
 
 ✅ Postman Collection: 
 
