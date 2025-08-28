@@ -47,7 +47,7 @@ pip install -r requirements.txt
 3.6 Open another terminal, activate the virtual environment again and run the Kafka Consumer:
 python3 app/core/kafka_consumer.py
 
-4. Link to video recording of the project: https://drive.google.com/file/d/17ZS61rFsG7BVnmIkzYTLTHOsfr9mWaZX/view?usp=sharing
+**4. Link to video recording of the project:** https://drive.google.com/file/d/17ZS61rFsG7BVnmIkzYTLTHOsfr9mWaZX/view?usp=sharing
 
 5. API Documentation: 
 
