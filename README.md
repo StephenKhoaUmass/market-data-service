@@ -1,6 +1,6 @@
-Market Data Service: A backend service that fetches real-time stock prices, stores them in a PostgreSQL database, caches responses with Redis, publishes updates to Kafka, and calculates moving averages.
+**Market Data Service:** A backend service that fetches real-time stock prices, stores them in a PostgreSQL database, caches responses with Redis, publishes updates to Kafka, and calculates moving averages.
 
-1. Features:
+**1. Features:**
 
 - API Endpoint: /prices/latest?symbol=AAPL&provider=yfinance
 - Providers: Supports real-time data from yfinance
@@ -10,7 +10,7 @@ Market Data Service: A backend service that fetches real-time stock prices, stor
 - CI/CD: Automated testing via GitHub Actions
 - Testing: Postman collection included with test scripts
 
-2. Architecture Overview:
+**2. Architecture Overview:**
 
 User --> FastAPI --> PostgreSQL
 
@@ -25,7 +25,7 @@ Kafka   -->   Consumer --> Moving Average --> PostgreSQL
 - Redis: Caches recent API results for performance
 - Kafka: Sends price updates to a consumer which computes moving averages
 
-3. Setup Instructions:
+**3. Setup Instructions:**
 
 3.1. Clone the repo: git clone https://github.com/YOUR_USERNAME/market-data-service.git
 
@@ -49,7 +49,7 @@ python3 app/core/kafka_consumer.py
 
 **4. Link to video recording of the project:** https://drive.google.com/file/d/17ZS61rFsG7BVnmIkzYTLTHOsfr9mWaZX/view?usp=sharing
 
-5. API Documentation: 
+**5. API Documentation:**
 
 GET /prices/latest: Fetches the latest price for a given stock symbol.
 
@@ -65,7 +65,7 @@ Response: {
   "timestamp": "2025-06-19T00:01:09.688642+00:00"
 }
 
-6. Testing:
+**6. Testing:**
 
 ✅ Postman Collection: 
 
