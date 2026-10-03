@@ -1,0 +1,6 @@
+marketdata/
+__pycache__/
+.pytest_cache/
+.DS_Store
+.pgdata/
+*.pyc

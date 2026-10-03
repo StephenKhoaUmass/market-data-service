@@ -2,7 +2,11 @@ from confluent_kafka import Producer
 import json
 
 producer_conf = {
-    'bootstrap.servers': 'localhost:9092'
+    'bootstrap.servers': 'localhost:9092',
+    'socket.timeout.ms': 500,
+    'message.timeout.ms': 1000,
+    'reconnect.backoff.ms': 50,
+    'reconnect.backoff.max.ms': 200,
 }
 
 producer = Producer(producer_conf)

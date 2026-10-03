@@ -1,11 +1,8 @@
-from confluent_kafka import Consumer, KafkaException
+from confluent_kafka import Consumer, KafkaError, KafkaException
 import json
-from sqlalchemy.orm import Session
-from app.models.db import get_db_session
+from app.models.db import session_scope
 from app.models.market_data import PricePoint, SymbolAverage
 from app.services.utils import calculate_moving_average
-
-import time
 
 conf = {
     'bootstrap.servers': 'localhost:9092',
@@ -24,35 +21,30 @@ try:
         if msg is None:
             continue
         if msg.error():
+            # The topic is created on the first publish, so a fresh broker
+            # reports this until the API has sent a price.
+            if msg.error().code() == KafkaError.UNKNOWN_TOPIC_OR_PART:
+                continue
             raise KafkaException(msg.error())
         
         data = json.loads(msg.value().decode("utf-8"))
         symbol = data["symbol"]
 
-        # Get DB session
-        db: Session = next(get_db_session())
-
-        # Fetch latest 5 prices
-        prices = (
-            db.query(PricePoint.price)
-            .filter(PricePoint.symbol == symbol)
-            .order_by(PricePoint.timestamp.desc())
-            .limit(5)
-            .all()
-        )
-        price_list = [p[0] for p in prices]
-
-        # Compute and store moving average
-        avg = calculate_moving_average(price_list)
-        existing = db.query(SymbolAverage).filter_by(symbol=symbol).first()
-
-        if existing:
-            existing.average = avg
-        else:
-            new_avg = SymbolAverage(symbol=symbol, average=avg)
-            db.add(new_avg)
-
-        db.commit()
+        with session_scope() as db:
+            prices = (
+                db.query(PricePoint.price)
+                .filter(PricePoint.symbol == symbol)
+                .order_by(PricePoint.timestamp.desc())
+                .limit(5)
+                .all()
+            )
+            price_list = [p[0] for p in prices]
+            avg = calculate_moving_average(price_list)
+            existing = db.query(SymbolAverage).filter_by(symbol=symbol).first()
+            if existing:
+                existing.average = avg
+            else:
+                db.add(SymbolAverage(symbol=symbol, average=avg))
         print(f"[✅] Stored moving average for {symbol}: {avg}")
 
 except KeyboardInterrupt:

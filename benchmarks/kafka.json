@@ -1,0 +1,32 @@
+{
+  "broker": "localhost:9092",
+  "topic": "price-events",
+  "poll_0_queue_only_ms": {
+    "n": 200,
+    "min_ms": 0.003,
+    "median_ms": 0.003,
+    "p95_ms": 0.004,
+    "p99_ms": 0.011,
+    "max_ms": 0.245,
+    "percentile_method": "numpy linear"
+  },
+  "broker_ack_flush_ms": {
+    "n": 50,
+    "min_ms": 0.972,
+    "median_ms": 2.066,
+    "p95_ms": 3.654,
+    "p99_ms": 9.116,
+    "max_ms": 14.105,
+    "percentile_method": "numpy linear"
+  },
+  "produce_to_average_stored_ms": {
+    "n": 30,
+    "min_ms": 3.563,
+    "median_ms": 5.425,
+    "p95_ms": 6.91,
+    "p99_ms": 36.651,
+    "max_ms": 48.741,
+    "percentile_method": "numpy linear"
+  },
+  "note": "poll(0) is the API path and does not wait for Kafka. flush waits for the broker ack. stored includes that ack plus the consumer's Postgres write."
+}

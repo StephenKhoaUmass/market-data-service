@@ -47,3 +47,9 @@ uvicorn==0.34.3
 websockets==15.0.1
 yarl==1.20.1
 yfinance==0.2.63
+scikit-learn==1.9.1
+scipy==1.18.1
+joblib==1.6.0
+narwhals==2.26.0
+threadpoolctl==3.7.0
+cloudpickle==3.1.2

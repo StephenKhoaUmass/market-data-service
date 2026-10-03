@@ -1,9 +1,10 @@
+from contextlib import contextmanager
+import os
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
-import os
 
-# You can configure this using dotenv or a config file later
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
     "postgresql://khoaho:postgres@localhost:6543/market"
@@ -20,3 +21,17 @@ def get_db_session():
         yield db
     finally:
         db.close()
+
+
+@contextmanager
+def session_scope():
+    """Commit on success, roll back on failure, and always return the session."""
+    db = SessionLocal()
+    try:
+        yield db
+        db.commit()
+    except Exception:
+        db.rollback()
+        raise
+    finally:
+        SessionLocal.remove()

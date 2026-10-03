@@ -1,0 +1,33 @@
+{
+  "postgres": "PostgreSQL 15.13 (Debian 15.13-1.pgdg120+1) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit",
+  "rows": 1000000,
+  "symbols": 50,
+  "rows_per_symbol": 20000,
+  "query": "WHERE symbol = ? ORDER BY ts DESC LIMIT 5",
+  "parallel_workers": 0,
+  "note": "First EXPLAIN of each setup is discarded. Times are server execution time.",
+  "no_secondary_index": {
+    "plan": "Sort Method: top-N heapsort  Memory: 25kB | ->  Seq Scan on bench_prices",
+    "plan_text": "Limit  (cost=20192.38..20192.40 rows=5 width=16) (actual time=78.109..78.110 rows=5 loops=1)\n  Buffers: shared hit=7353\n  ->  Sort  (cost=20192.38..20243.47 rows=20433 width=16) (actual time=78.108..78.108 rows=5 loops=1)\n        Sort Key: ts DESC\n        Sort Method: top-N heapsort  Memory: 25kB\n        Buffers: shared hit=7353\n        ->  Seq Scan on bench_prices  (cost=0.00..19853.00 rows=20433 width=16) (actual time=1.278..75.333 rows=20000 loops=1)\n              Filter: (symbol = 'S0001'::text)\n              Rows Removed by Filter: 980000\n              Buffers: shared hit=7353\nPlanning Time: 0.048 ms\nExecution Time: 78.124 ms",
+    "median_ms": 72.715,
+    "p95_ms": 78.124,
+    "max_ms": 81.014,
+    "repeats": 20
+  },
+  "symbol_index": {
+    "plan": "Sort Method: top-N heapsort  Memory: 25kB | ->  Index Scan using bench_prices_symbol_idx on bench_prices",
+    "plan_text": "Limit  (cost=985.14..985.15 rows=5 width=16) (actual time=5.154..5.155 rows=5 loops=1)\n  Buffers: shared hit=168\n  ->  Sort  (cost=985.14..1039.72 rows=21833 width=16) (actual time=5.154..5.154 rows=5 loops=1)\n        Sort Key: ts DESC\n        Sort Method: top-N heapsort  Memory: 25kB\n        Buffers: shared hit=168\n        ->  Index Scan using bench_prices_symbol_idx on bench_prices  (cost=0.42..622.50 rows=21833 width=16) (actual time=0.006..2.691 rows=20000 loops=1)\n              Index Cond: (symbol = 'S0001'::text)\n              Buffers: shared hit=168\nPlanning Time: 0.018 ms\nExecution Time: 5.159 ms",
+    "median_ms": 5.13,
+    "p95_ms": 5.218,
+    "max_ms": 5.852,
+    "repeats": 20
+  },
+  "composite_symbol_ts_desc": {
+    "plan": "->  Index Scan using bench_prices_symbol_ts_idx on bench_prices",
+    "plan_text": "Limit  (cost=0.42..4.02 rows=5 width=16) (actual time=0.008..0.009 rows=5 loops=1)\n  Buffers: shared hit=4\n  ->  Index Scan using bench_prices_symbol_ts_idx on bench_prices  (cost=0.42..13570.22 rows=18867 width=16) (actual time=0.008..0.008 rows=5 loops=1)\n        Index Cond: (symbol = 'S0001'::text)\n        Buffers: shared hit=4\nPlanning Time: 0.019 ms\nExecution Time: 0.013 ms",
+    "median_ms": 0.013,
+    "p95_ms": 0.019,
+    "max_ms": 0.019,
+    "repeats": 20
+  }
+}

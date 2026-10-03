@@ -1,0 +1,209 @@
+{
+  "AAPL": {
+    "symbol": "AAPL",
+    "bars": 1255,
+    "start": "2021-10-04",
+    "end": "2026-10-02",
+    "last_close": 333.69,
+    "moving_average_20": 331.895,
+    "volatility": {
+      "window": 20,
+      "daily_std": 0.014543,
+      "annualized": 0.230865,
+      "annualization": "daily_std * sqrt(252)"
+    },
+    "anomalies": {
+      "rule": "abs(z) >= 2 versus the prior 20 daily returns",
+      "count": 90,
+      "eligible_bars": 1234,
+      "rate": 0.0729,
+      "latest": [
+        {
+          "date": "2026-07-31",
+          "return": -0.073539,
+          "z": -4.391
+        },
+        {
+          "date": "2026-09-01",
+          "return": 0.026132,
+          "z": 2.118
+        },
+        {
+          "date": "2026-09-04",
+          "return": -0.025106,
+          "z": -2.31
+        },
+        {
+          "date": "2026-09-10",
+          "return": 0.035612,
+          "z": 2.602
+        },
+        {
+          "date": "2026-09-29",
+          "return": -0.026596,
+          "z": -2.109
+        }
+      ]
+    },
+    "direction_model": {
+      "status": "ok",
+      "split": "chronological first 70% train, last 30% test",
+      "features": [
+        "last_return",
+        "mean_return_5",
+        "std_return_20"
+      ],
+      "n_train": 863,
+      "n_test": 371,
+      "test_accuracy": 0.5256,
+      "test_precision_up": 0.5341,
+      "majority_baseline_accuracy": 0.5391,
+      "persistence_baseline_accuracy": 0.5067,
+      "accuracy_minus_majority": -0.0135,
+      "accuracy_standard_error": 0.0259,
+      "beats_majority_baseline": false,
+      "train_up_rate": 0.5284,
+      "test_up_rate": 0.5391,
+      "fit_note": null
+    },
+    "period": "5y"
+  },
+  "MSFT": {
+    "symbol": "MSFT",
+    "bars": 1255,
+    "start": "2021-10-04",
+    "end": "2026-10-02",
+    "last_close": 517.53,
+    "moving_average_20": 501.672,
+    "volatility": {
+      "window": 20,
+      "daily_std": 0.014088,
+      "annualized": 0.223633,
+      "annualization": "daily_std * sqrt(252)"
+    },
+    "anomalies": {
+      "rule": "abs(z) >= 2 versus the prior 20 daily returns",
+      "count": 94,
+      "eligible_bars": 1234,
+      "rate": 0.0762,
+      "latest": [
+        {
+          "date": "2026-05-29",
+          "return": 0.054451,
+          "z": 3.26
+        },
+        {
+          "date": "2026-06-02",
+          "return": -0.041714,
+          "z": -2.603
+        },
+        {
+          "date": "2026-06-26",
+          "return": 0.057081,
+          "z": 2.436
+        },
+        {
+          "date": "2026-07-30",
+          "return": 0.155067,
+          "z": 9.279
+        },
+        {
+          "date": "2026-09-25",
+          "return": 0.036632,
+          "z": 2.576
+        }
+      ]
+    },
+    "direction_model": {
+      "status": "ok",
+      "split": "chronological first 70% train, last 30% test",
+      "features": [
+        "last_return",
+        "mean_return_5",
+        "std_return_20"
+      ],
+      "n_train": 863,
+      "n_test": 371,
+      "test_accuracy": 0.4771,
+      "test_precision_up": 0.502,
+      "majority_baseline_accuracy": 0.5256,
+      "persistence_baseline_accuracy": 0.496,
+      "accuracy_minus_majority": -0.0485,
+      "accuracy_standard_error": 0.0259,
+      "beats_majority_baseline": false,
+      "train_up_rate": 0.5133,
+      "test_up_rate": 0.5256,
+      "fit_note": null
+    },
+    "period": "5y"
+  },
+  "SPY": {
+    "symbol": "SPY",
+    "bars": 1255,
+    "start": "2021-10-04",
+    "end": "2026-10-02",
+    "last_close": 769.64,
+    "moving_average_20": 763.9794,
+    "volatility": {
+      "window": 20,
+      "daily_std": 0.006526,
+      "annualized": 0.103589,
+      "annualization": "daily_std * sqrt(252)"
+    },
+    "anomalies": {
+      "rule": "abs(z) >= 2 versus the prior 20 daily returns",
+      "count": 85,
+      "eligible_bars": 1234,
+      "rate": 0.0689,
+      "latest": [
+        {
+          "date": "2026-07-30",
+          "return": 0.016766,
+          "z": 2.664
+        },
+        {
+          "date": "2026-08-04",
+          "return": 0.018029,
+          "z": 2.094
+        },
+        {
+          "date": "2026-09-03",
+          "return": 0.010468,
+          "z": 2.316
+        },
+        {
+          "date": "2026-09-17",
+          "return": 0.011339,
+          "z": 2.239
+        },
+        {
+          "date": "2026-09-21",
+          "return": 0.015505,
+          "z": 2.668
+        }
+      ]
+    },
+    "direction_model": {
+      "status": "ok",
+      "split": "chronological first 70% train, last 30% test",
+      "features": [
+        "last_return",
+        "mean_return_5",
+        "std_return_20"
+      ],
+      "n_train": 863,
+      "n_test": 371,
+      "test_accuracy": 0.5175,
+      "test_precision_up": 0.5378,
+      "majority_baseline_accuracy": 0.5526,
+      "persistence_baseline_accuracy": 0.5175,
+      "accuracy_minus_majority": -0.035,
+      "accuracy_standard_error": 0.0259,
+      "beats_majority_baseline": false,
+      "train_up_rate": 0.5284,
+      "test_up_rate": 0.5526,
+      "fit_note": null
+    },
+    "period": "5y"
+  }
+}
